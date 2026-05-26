@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" fill="none" role="img" aria-label="NexaHub">
+  <!-- N mark scaled to ~48px tall -->
+  <g transform="translate(8 10) scale(1)">
+    <path d="M21.3474 0.349945L46.7544 25.7266V39.3499H34.8978V30.624L16.4444 12.1924H12.611V39.3499H0.754395V0.349945H21.3474ZM34.8978 13.8842V0.349945H46.7544V13.8842H34.8978Z" fill="#4b73ff"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="62" y="30"
+        dominant-baseline="central"
+        font-family="'Inter', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="26"
+        font-weight="700"
+        letter-spacing="-0.6"
+        fill="currentColor">NexaHub</text>
+</svg>

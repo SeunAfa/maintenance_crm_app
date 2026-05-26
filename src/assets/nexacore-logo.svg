@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none" role="img" aria-label="NexaCore">
+  <defs>
+    <linearGradient id="nc-grad" x1="12%" y1="0%" x2="88%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- N mark, scaled to fit ~56px tall, centered at y=40 -->
+  <g fill="url(#nc-grad)" transform="translate(12 12) scale(0.64)">
+    <rect x="4" y="4" width="14" height="80"/>
+    <rect x="64" y="4" width="14" height="80"/>
+    <polygon points="18,4 32,4 64,84 50,84"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="76" y="40"
+        dominant-baseline="central"
+        font-family="'Inter', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="30"
+        font-weight="600"
+        letter-spacing="-0.6"
+        fill="currentColor">NexaCore</text>
+</svg>

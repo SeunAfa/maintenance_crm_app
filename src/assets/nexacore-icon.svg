@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="NexaCore">
+  <defs>
+    <linearGradient id="nc-icon-grad" x1="12%" y1="0%" x2="88%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <text x="60" y="62"
+        text-anchor="middle"
+        dominant-baseline="central"
+        font-family="'Inter', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="110"
+        font-weight="800"
+        letter-spacing="-4"
+        fill="url(#nc-icon-grad)">N</text>
+</svg>

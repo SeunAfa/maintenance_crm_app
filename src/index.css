@@ -1,0 +1,41 @@
+/* global styles (resets, fonts, colors, body, html). */
+@import "tailwindcss";
+
+@theme {
+  /* Deepest base for the main app background */
+  --color-obsidianNight: #131316;
+
+  /* Slightly lighter for sidebars and navigation panels */
+  --color-obsidianSurface: #1c1c21;
+
+  /* For card backgrounds, modals, and elevated UI elements */
+  --color-obsidianElevated: #26262c;
+
+  /* For borders, input fields, and hover states */
+  --color-obsidianHighlight: #2f3037;
+
+  /* Your primary brand/action color for CTAs and active states */
+  --color-electricBlue: #4b73ff;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes shimmer-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+}
