@@ -31,11 +31,20 @@
 html,
 body {
   overflow-x: hidden;
+  /* `dvh` = dynamic viewport height — excludes the iOS browser chrome
+     (URL bar at top, bottom toolbar) so the app actually fills the
+     visible area. `vh` is the fallback for browsers without `dvh`. */
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #131316; /* obsidianNight — kills the white flash on refresh */
+  color: #ffffff;
+  -webkit-text-size-adjust: 100%;
 }
 
 #root {
+  min-height: 100vh;
+  min-height: 100dvh;
 }

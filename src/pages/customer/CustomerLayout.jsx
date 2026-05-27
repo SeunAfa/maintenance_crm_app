@@ -81,7 +81,7 @@ export default function CustomerLayout() {
   const initials = customer.displayName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-obsidianSurface">
+    <div className="flex h-screen h-[100dvh] overflow-hidden bg-obsidianSurface">
       {/* Sidebar — collapsed-by-default, expand on hover */}
       <aside className="hidden lg:flex lg:flex-col lg:shrink-0 lg:w-[64px] hover:lg:w-60 transition-all duration-300 ease-in-out group/sidebar z-50 border-r border-obsidianHighlight bg-obsidianNight">
         <div className="flex grow flex-col overflow-y-auto overflow-x-hidden">
@@ -202,17 +202,24 @@ export default function CustomerLayout() {
         {/* Body — case-detail + new-case routes run full-bleed (own scroll) */}
         <main
           className={classNames(
-            "flex-1 min-h-0 pb-14 lg:pb-0", // ← extra bottom padding for mobile tab bar
+            "flex-1 min-h-0 lg:pb-0",
             /\/customer\/cases\/(\d+|new)/.test(location.pathname)
               ? "overflow-hidden"
               : "overflow-y-auto px-3 py-4 sm:px-4 sm:py-5 lg:px-6 lg:py-6"
           )}
+          // Reserve room for the mobile tab bar including iOS safe area
+          style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom, 0px))" }}
         >
           <Outlet />
         </main>
 
-        {/* Mobile bottom tab bar — only on small screens */}
-        <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 h-14 border-t border-obsidianHighlight bg-obsidianNight/95 backdrop-blur flex items-stretch">
+        {/* Mobile bottom tab bar — only on small screens.
+            `pb-[env(safe-area-inset-bottom)]` keeps the icons above the
+            iOS home-indicator / Chrome toolbar overlay. */}
+        <nav
+          className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-obsidianHighlight bg-obsidianNight/95 backdrop-blur flex items-stretch"
+          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", height: "calc(3.5rem + env(safe-area-inset-bottom, 0px))" }}
+        >
           {navigation.map((item) => {
             const isActive = location.pathname === item.to ||
                              (item.to !== "/customer" && location.pathname.startsWith(item.to));

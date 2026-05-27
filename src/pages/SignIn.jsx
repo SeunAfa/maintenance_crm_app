@@ -61,7 +61,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex h-screen bg-obsidianNight">
+    <div className="flex h-screen h-[100dvh] bg-obsidianNight">
       {/* Left panel */}
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
