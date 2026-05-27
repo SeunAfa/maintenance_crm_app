@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useParams, useSearchParams } from "react-router-dom";
+import { HashRouter, Routes, Route, useParams, useSearchParams } from "react-router-dom";
 import { CasesProvider } from "./context/CasesContext";
 import { UsersProvider } from "./context/UsersContext";
 import UserRoleSelection from "./pages/UserRoleSelection";
@@ -40,7 +40,7 @@ export default function AppRoutes() {
   return (
     <UsersProvider>
     <CasesProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/signin" element={<SignIn />} />
@@ -73,7 +73,7 @@ export default function AppRoutes() {
             <Route path="users/:id" element={<UserDetail />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </CasesProvider>
     </UsersProvider>
   );
