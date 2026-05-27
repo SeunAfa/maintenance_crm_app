@@ -998,8 +998,8 @@ export default function Manage({
               const showAutoFill   = !aiFilledOnce;
               const showSummarise  = aiFilledOnce && descEdited;
               return (
-                <div className={`shrink-0 flex items-center justify-between gap-3 px-5 py-3 border-t bg-obsidianSurface ${highlight ? "border-amber-400/40 bg-amber-400/5" : "border-obsidianHighlight"}`}>
-                  <p className={`text-[11px] ${isLocked ? "text-white/40" : highlight ? "text-amber-400" : "text-white/55"}`}>
+                <div className={`shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 px-3 sm:px-5 py-3 border-t bg-obsidianSurface ${highlight ? "border-amber-400/40 bg-amber-400/5" : "border-obsidianHighlight"}`}>
+                  <p className={`text-[11px] flex-1 min-w-0 ${isLocked ? "text-white/40" : highlight ? "text-amber-400" : "text-white/55"}`}>
                     {isLocked
                       ? "Case is locked — make updates through the work order"
                       : highlight
