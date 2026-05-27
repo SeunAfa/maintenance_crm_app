@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/maintenance_crm_app/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#131316" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>NexaHub</title>
-    <script type="module" crossorigin src="/maintenance_crm_app/assets/index-_j81MKQm.js"></script>
-    <link rel="stylesheet" crossorigin href="/maintenance_crm_app/assets/index-C1B5mrJe.css">
+    <style>
+      /* Paint the body dark BEFORE React mounts so refresh doesn't flash white */
+      html, body { background-color: #131316; }
+    </style>
+    <script type="module" crossorigin src="/maintenance_crm_app/assets/index-DjQTsn-T.js"></script>
+    <link rel="stylesheet" crossorigin href="/maintenance_crm_app/assets/index-CnUjh0B7.css">
   </head>
   <body>
     <div id="root"></div>
