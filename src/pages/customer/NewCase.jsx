@@ -388,7 +388,10 @@ export default function NewCase() {
       </div>
 
       {/* Fixed bottom action bar — buttons align with the right edge of the content above */}
-      <div className="shrink-0 px-4 sm:px-6 py-3 border-t border-obsidianHighlight bg-obsidianSurface">
+      <div
+        className="shrink-0 px-4 sm:px-6 py-3 border-t border-obsidianHighlight bg-obsidianSurface"
+        style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))" }}
+      >
         <div className="max-w-5xl mx-auto flex items-center justify-end gap-3">
           <Link
             to="/customer/cases"

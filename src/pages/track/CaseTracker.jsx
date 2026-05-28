@@ -382,7 +382,7 @@ export default function CaseTracker() {
   }
 
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-gradient-to-b from-obsidianNight via-obsidianSurface to-obsidianNight text-white">
+    <div className="min-h-dvh w-full bg-gradient-to-b from-obsidianNight via-obsidianSurface to-obsidianNight text-white">
       {/* Sticky header */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-obsidianNight/80 border-b border-white/[0.04]">
         <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4">
@@ -425,7 +425,7 @@ export default function CaseTracker() {
 // â”€â”€â”€ Not-found view â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function NotFound({ caseId }) {
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-obsidianNight text-white flex flex-col items-center justify-center px-5">
+    <div className="min-h-dvh w-full bg-obsidianNight text-white flex flex-col items-center justify-center px-5">
       <div className="max-w-md w-full text-center flex flex-col items-center gap-4">
         <ExclamationCircleIcon className="size-12 text-white/20" />
         <h1 className="text-xl font-bold">We can't find that case</h1>

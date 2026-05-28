@@ -81,7 +81,7 @@ export default function CustomerLayout() {
   const initials = customer.displayName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
   return (
-    <div className="flex h-screen h-[100dvh] overflow-hidden bg-obsidianSurface">
+    <div className="flex h-dvh overflow-hidden bg-obsidianSurface">
       {/* Sidebar — collapsed-by-default, expand on hover */}
       <aside className="hidden lg:flex lg:flex-col lg:shrink-0 lg:w-[64px] hover:lg:w-60 transition-all duration-300 ease-in-out group/sidebar z-50 border-r border-obsidianHighlight bg-obsidianNight">
         <div className="flex grow flex-col overflow-y-auto overflow-x-hidden">

@@ -625,7 +625,7 @@ export default function AdminLayout() {
       {/* LAYOUT WRAPPER 
           Using 'flex' and 'h-screen' to manage the desktop sidebar flow 
       */}
-      <div className="flex h-screen h-[100dvh] overflow-hidden bg-obsidianSurface">
+      <div className="flex h-dvh overflow-hidden bg-obsidianSurface">
         {/* Mobile Sidebar (Kept as an Overlay) */}
         <Dialog
           open={sidebarOpen}
