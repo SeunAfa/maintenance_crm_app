@@ -202,23 +202,22 @@ export default function CustomerLayout() {
         {/* Body — case-detail + new-case routes run full-bleed (own scroll) */}
         <main
           className={classNames(
-            "flex-1 min-h-0 lg:pb-0",
+            "flex-1 min-h-0",
             /\/customer\/cases\/(\d+|new)/.test(location.pathname)
               ? "overflow-hidden"
               : "overflow-y-auto px-3 py-4 sm:px-4 sm:py-5 lg:px-6 lg:py-6"
           )}
-          // Reserve room for the mobile tab bar including iOS safe area
-          style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom, 0px))" }}
         >
           <Outlet />
         </main>
 
         {/* Mobile bottom tab bar — only on small screens.
-            `pb-[env(safe-area-inset-bottom)]` keeps the icons above the
-            iOS home-indicator / Chrome toolbar overlay. */}
+            Rendered as a normal flex child (NOT position:fixed) so it lives
+            inside the h-[100dvh] column and always sits above the iOS browser
+            toolbar. The safe-area padding clears the home indicator. */}
         <nav
-          className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-obsidianHighlight bg-obsidianNight/95 backdrop-blur flex items-stretch"
-          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", height: "calc(3.5rem + env(safe-area-inset-bottom, 0px))" }}
+          className="lg:hidden shrink-0 min-h-14 border-t border-obsidianHighlight bg-obsidianNight flex items-stretch"
+          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         >
           {navigation.map((item) => {
             const isActive = location.pathname === item.to ||
