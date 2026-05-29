@@ -208,7 +208,18 @@ export default function CustomerLayout() {
               : "overflow-y-auto px-3 py-4 sm:px-4 sm:py-5 lg:px-6 lg:py-6"
           )}
         >
-          <Outlet />
+          {/\/customer\/cases\/(\d+|new)/.test(location.pathname) ? (
+            <Outlet />
+          ) : (
+            <div className="flex flex-col min-h-full">
+              <div className="flex-1">
+                <Outlet />
+              </div>
+              <footer className="shrink-0 pt-6 text-center text-[10px] text-white/25">
+                © {new Date().getFullYear()} Seun. All rights reserved.
+              </footer>
+            </div>
+          )}
         </main>
 
         {/* Mobile bottom tab bar — only on small screens.

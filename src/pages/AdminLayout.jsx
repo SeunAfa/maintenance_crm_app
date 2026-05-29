@@ -1047,14 +1047,20 @@ export default function AdminLayout() {
               isManageCases ? "overflow-hidden" : "overflow-y-auto px-3 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6"
             )}
           >
-            <div
-              className={classNames(
-                "w-full flex",
-                isManageCases ? "h-full" : "min-h-full"
-              )}
-            >
-              <Outlet />
-            </div>
+            {isManageCases ? (
+              <div className="w-full flex h-full">
+                <Outlet />
+              </div>
+            ) : (
+              <div className="w-full flex flex-col min-h-full">
+                <div className="flex-1 flex w-full">
+                  <Outlet />
+                </div>
+                <footer className="shrink-0 pt-6 text-center text-[10px] text-white/25">
+                  © {new Date().getFullYear()} Seun. All rights reserved.
+                </footer>
+              </div>
+            )}
           </main>
         </div>
       </div>
