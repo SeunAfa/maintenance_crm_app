@@ -157,6 +157,10 @@ export default function SignIn() {
               Use the public tracker
             </button>
           </p>
+
+          <p className="mt-8 text-center text-[10px] text-white/25">
+            © {new Date().getFullYear()} Seun. All rights reserved.
+          </p>
         </div>
       </div>
 

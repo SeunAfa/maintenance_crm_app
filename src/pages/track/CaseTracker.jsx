@@ -416,6 +416,7 @@ export default function CaseTracker() {
           <span className="text-electricBlue/70 font-semibold">NexaHub</span>
           {" · "}
           Need help? Reply to the original email.
+          <span className="block mt-1 text-white/20">© {new Date().getFullYear()} Seun. All rights reserved.</span>
         </footer>
       </main>
     </div>
