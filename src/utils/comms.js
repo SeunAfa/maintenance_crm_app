@@ -19,17 +19,18 @@ export function getReplyChannel(source) {
 }
 
 // Customer-facing tracker URL — keyed off the **case number** so customers
-// only ever see the identifier they recognise. In the browser this resolves
-// to the current origin so links are clickable in dev; in server/build
-// contexts it falls back to the production host that the real customer app
-// will live at.
+// only ever see the identifier they recognise. Builds against the live origin
+// + Vite base path + HashRouter route, so it resolves correctly in dev
+// (http://localhost:5173/#/track-case/CASE-X) and on GitHub Pages
+// (https://seunafa.github.io/maintenance_crm_app/#/track-case/CASE-X).
 export function buildTrackingLink(caseId) {
   if (!caseId) return null;
-  const base =
+  const basePath = import.meta.env.BASE_URL ?? "/"; // "/maintenance_crm_app/" in prod, "/" in dev
+  const origin =
     typeof window !== "undefined" && window.location?.origin
-      ? `${window.location.origin}/track-case`
-      : "https://track.facility.app/track-case";
-  return `${base}/${encodeURIComponent(caseId)}`;
+      ? window.location.origin
+      : "https://seunafa.github.io";
+  return `${origin}${basePath}#/track-case/${encodeURIComponent(caseId)}`;
 }
 
 function nowTime() {
