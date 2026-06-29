@@ -40,16 +40,42 @@ function migrateTrackingLinks(cases) {
   });
 }
 
+// The "completed this week" seed cases (seedPerf) are pure demo filler for the
+// dashboard graphs. Their dates are computed for the current week at module
+// load, but once persisted to localStorage they freeze — so returning users
+// see empty graphs weeks later. On every load we re-anchor those cases' dates
+// to the fresh seed values, keeping Cases-vs-Work-Orders and My Performance
+// permanently populated.
+function refreshPerfSeedDates(cases) {
+  const freshById = new Map(
+    INITIAL_CASES.filter((c) => c.seedPerf).map((c) => [c.id, c])
+  );
+  if (freshById.size === 0) return cases;
+  const DATE_FIELDS = [
+    "createdAt", "updatedAt", "completedAt", "acknowledgedAt", "inProgressAt",
+    "workOrderCreatedAt", "dispatchedAt", "scheduledDate",
+  ];
+  return cases.map((c) => {
+    const fresh = c?.seedPerf && freshById.get(c.id);
+    if (!fresh) return c;
+    const patch = {};
+    for (const f of DATE_FIELDS) if (fresh[f] !== undefined) patch[f] = fresh[f];
+    return { ...c, ...patch };
+  });
+}
+
 export const CasesProvider = ({ children }) => {
   const [cases, setCases] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return INITIAL_CASES;
+    // First load (no saved data) must also normalise seed tracking links to the
+    // live origin, otherwise the raw seed URLs show through unmigrated.
+    if (!saved) return migrateTrackingLinks(refreshPerfSeedDates(INITIAL_CASES));
     const savedCases = JSON.parse(saved);
     const savedIds = new Set(savedCases.map((c) => c.id));
     // Merge: keep saved cases + inject any new seed cases missing from storage
     const newSeedCases = INITIAL_CASES.filter((c) => !savedIds.has(c.id));
     const merged = newSeedCases.length > 0 ? [...savedCases, ...newSeedCases] : savedCases;
-    return migrateTrackingLinks(merged);
+    return migrateTrackingLinks(refreshPerfSeedDates(merged));
   });
 
   useEffect(() => {
