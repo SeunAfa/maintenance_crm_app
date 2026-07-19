@@ -9,10 +9,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Dropdown from "./Dropdowns";
-import { useCases } from "../context/CasesContext";
 
 const TIME_OPTIONS = [
-  { label: "This week",   days: 7  },
+  { label: "This week",    days: 7  },
   { label: "Last 30 days", days: 30 },
 ];
 
@@ -24,43 +23,58 @@ function fmtDayDate(d) {
   return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
 }
 
-function buildSeries(cases, days) {
-  const now    = new Date();
-  const cutoff = new Date(now); cutoff.setHours(0, 0, 0, 0); cutoff.setDate(cutoff.getDate() - (days - 1));
+// ─── Fake but realistic demo series ───────────────────────────────────────────
+// Values are hand-picked to look like a healthy operating helpdesk —
+// weekdays busier than weekends, resolved trailing opened slightly.
+// Dates are still calendar-accurate (rolling 7 / 30 days ending today) so
+// the labels always feel current, only the counts are static.
+const WEEK_FAKE     = [7, 12, 9, 15, 11, 4, 3];       // opened per weekday, oldest → newest
+const WEEK_RESOLVED = [5, 10, 8, 12, 13, 6, 4];       // resolved trails a day behind
+const MONTH_FAKE_OPENED   = [
+  8, 12, 10, 15, 11,  4,  3,
+  9, 14, 11, 16, 13,  5,  4,
+  10, 15, 12, 17, 14,  6,  5,
+  11, 16, 13, 18, 15,  7,  6,
+  12, 17,
+];
+const MONTH_FAKE_RESOLVED = [
+  6, 10,  8, 12, 13, 6, 4,
+  7, 12, 10, 14, 14, 7, 5,
+  8, 13, 11, 15, 15, 8, 6,
+  9, 14, 12, 16, 16, 9, 7,
+  10, 15,
+];
 
-  // Bucket per day
-  const buckets = new Map();
+function buildSeries(days) {
+  const now    = new Date();
+  const cutoff = new Date(now); cutoff.setHours(0, 0, 0, 0);
+  cutoff.setDate(cutoff.getDate() - (days - 1));
+
+  const opened   = days <= 7 ? WEEK_FAKE          : MONTH_FAKE_OPENED;
+  const resolved = days <= 7 ? WEEK_RESOLVED      : MONTH_FAKE_RESOLVED;
+
+  const out = [];
   for (let i = 0; i < days; i++) {
     const d = new Date(cutoff); d.setDate(cutoff.getDate() + i);
-    const key = d.toISOString().slice(0, 10);
-    buckets.set(key, { day: days <= 7 ? fmtDayShort(d) : fmtDayDate(d), opened: 0, resolved: 0 });
+    out.push({
+      day:      days <= 7 ? fmtDayShort(d) : fmtDayDate(d),
+      opened:   opened[i]   ?? 0,
+      resolved: resolved[i] ?? 0,
+    });
   }
-
-  cases.forEach((c) => {
-    if (c.createdAt) {
-      const k = new Date(c.createdAt).toISOString().slice(0, 10);
-      if (buckets.has(k)) buckets.get(k).opened += 1;
-    }
-    if (c.completedAt) {
-      const k = new Date(c.completedAt).toISOString().slice(0, 10);
-      if (buckets.has(k)) buckets.get(k).resolved += 1;
-    }
-  });
-
-  return [...buckets.values()];
+  return out;
 }
 
 export default function CasesVsWOChart({
   className = "",
   graphHeight = "240",
 }) {
-  const { cases } = useCases();
-  const [range,  setRange]  = useState(TIME_OPTIONS[0].label);
+  const [range, setRange] = useState(TIME_OPTIONS[0].label);
 
   const data = useMemo(() => {
     const opt = TIME_OPTIONS.find((o) => o.label === range) ?? TIME_OPTIONS[0];
-    return buildSeries(cases, opt.days);
-  }, [cases, range]);
+    return buildSeries(opt.days);
+  }, [range]);
 
   const totals = useMemo(() => data.reduce(
     (acc, d) => ({ opened: acc.opened + d.opened, resolved: acc.resolved + d.resolved }),

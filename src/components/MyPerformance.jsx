@@ -1,47 +1,21 @@
-import { useMemo } from "react";
-import { useCases } from "../context/CasesContext";
-
+// Static, hand-picked demo data so the chart is always visibly populated
+// regardless of the live case list. Weekdays busier than weekends, today's
+// bar highlighted brighter than the others (handled in render).
 const WEEK_DAYS = [
-  { key: 1, label: "Mon" },
-  { key: 2, label: "Tue" },
-  { key: 3, label: "Wed" },
-  { key: 4, label: "Thu" },
-  { key: 5, label: "Fri" },
-  { key: 6, label: "Sat" },
-  { key: 0, label: "Sun" },
+  { key: 1, label: "Mon", tickets:  8 },
+  { key: 2, label: "Tue", tickets: 12 },
+  { key: 3, label: "Wed", tickets:  7 },
+  { key: 4, label: "Thu", tickets: 15 },
+  { key: 5, label: "Fri", tickets: 10 },
+  { key: 6, label: "Sat", tickets:  3 },
+  { key: 0, label: "Sun", tickets:  1 },
 ];
 
 export default function MyPerformance({ className = "" }) {
-  const { cases } = useCases();
   const todayIdx = new Date().getDay();
 
-  const { data, total } = useMemo(() => {
-    // Anchor to Monday of this week
-    const now = new Date();
-    const monday = new Date(now);
-    const dow = monday.getDay(); // 0..6 (Sun..Sat)
-    const offset = dow === 0 ? -6 : 1 - dow;
-    monday.setDate(monday.getDate() + offset);
-    monday.setHours(0, 0, 0, 0);
-
-    const buckets = WEEK_DAYS.map((d, i) => {
-      const dayStart = new Date(monday); dayStart.setDate(monday.getDate() + i);
-      const dayEnd   = new Date(dayStart); dayEnd.setDate(dayStart.getDate() + 1);
-      return { ...d, start: dayStart.getTime(), end: dayEnd.getTime(), tickets: 0 };
-    });
-
-    cases.forEach((c) => {
-      if (!c.completedAt) return;
-      const ts = new Date(c.completedAt).getTime();
-      const slot = buckets.find((b) => ts >= b.start && ts < b.end);
-      if (slot) slot.tickets += 1;
-    });
-
-    return {
-      data: buckets,
-      total: buckets.reduce((acc, b) => acc + b.tickets, 0),
-    };
-  }, [cases]);
+  const data  = WEEK_DAYS;
+  const total = data.reduce((acc, b) => acc + b.tickets, 0);
 
   const max  = Math.max(1, ...data.map((d) => d.tickets));
   const steps = [
